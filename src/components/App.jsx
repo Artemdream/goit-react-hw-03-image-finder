@@ -17,12 +17,12 @@ export class App extends Component {
     error: null,
   };
 
-  // Якщо змінився state рендеримо картинки
+  //* Якщо змінився state рендеримо картинки
   componentDidUpdate(prevProps, prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) this.getImages();
   }
 
-  // Отримуємо дані з fetch і записуємо в state
+  //* Отримуємо дані з fetch і записуємо в state
   getImages = async () => {
     const { searchQuery, page } = this.state;
     this.setState({ isLoading: true });
@@ -44,6 +44,7 @@ export class App extends Component {
     }
   };
 
+  //* По кліку отримуємо велике зображення і відкриваємо модалку
   getLargeImage = largeImage => {
     this.setState({ largeImage, showModal: true });
   };
@@ -52,7 +53,7 @@ export class App extends Component {
     this.setState({ showModal: !this.state.showModal });
   };
 
-  // При сабміті форми отримує значення інпуту і скидає images та page
+  //* При сабміті форми отримує значення інпуту і скидає images та page
   handleFormSubmit = searchQuery => {
     this.setState({ images: [], searchQuery, page: 1 });
   };

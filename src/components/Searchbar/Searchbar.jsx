@@ -7,13 +7,13 @@ export class Searchbar extends Component {
     searchQuery: '',
   };
 
-  //Значення інпута записуємо в стейт
+  //* Значення інпута записуємо в стейт
   handleChangeSearchQuery = e => {
     const searchQuery = e.currentTarget.value.toLowerCase();
     this.setState({ searchQuery });
   };
 
-  // Передаємо в App значення searchQuery і очищуємо форму
+  //*  Передаємо в App значення searchQuery і очищуємо форму
   handleSubmit = e => {
     e.preventDefault();
     const { searchQuery } = this.state;
