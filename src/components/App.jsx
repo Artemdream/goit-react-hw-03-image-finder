@@ -14,6 +14,7 @@ export class App extends Component {
     largeImage: '',
     showModal: false,
     isLoading: false,
+    isActiveBtn: false,
     error: null,
   };
 
@@ -27,15 +28,18 @@ export class App extends Component {
 
   getImages = async () => {
     const { searchQuery, page } = this.state;
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, isActiveBtn: false });
 
     try {
-      const { hits } = await fetchImages(searchQuery, page);
+      const { hits, total, totalHits } = await fetchImages(searchQuery, page);
 
       this.setState(({ page, images }) => ({
         images: [...images, ...hits],
         page: page + 1,
+        isActiveBtn: true,
       }));
+
+      if (total === totalHits) this.setState({ isActiveBtn: false });
     } catch (error) {
       this.setState({
         error: 'sorry, the server is not responding, try again later',
@@ -62,7 +66,8 @@ export class App extends Component {
   };
 
   render() {
-    const { showModal, isLoading, images, largeImage, error } = this.state;
+    const { showModal, isLoading, images, largeImage, error, isActiveBtn } =
+      this.state;
 
     return (
       <div>
@@ -70,7 +75,7 @@ export class App extends Component {
         {error}
         <ImageGallery items={images} onGetImages={this.getLargeImage} />
         {isLoading && <Loader />}
-        {images.length >= 12 && <Button onLoadMore={() => this.getImages} />}
+        {isActiveBtn && <Button onLoadMore={() => this.getImages} />}
         {showModal && (
           <Modal largeImage={largeImage} onClick={this.toggleModal} />
         )}
