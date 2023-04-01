@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import '../styles.css';
 
 export const Button = ({ onLoadMore }) => (
-  <button tupe="button" className="Button" onClick={onLoadMore()}>
+  <button type="button" className="Button" onClick={onLoadMore()}>
     Load more
   </button>
 );
