@@ -31,8 +31,6 @@ export class App extends Component {
 
     try {
       const { hits } = await fetchImages(searchQuery, page);
-      if (hits.length < 12) {
-      }
 
       this.setState(({ page, images }) => ({
         images: [...images, ...hits],
