@@ -27,11 +27,11 @@ export class App extends Component {
   //* Отримуємо дані з fetch і записуємо в state
 
   getImages = async () => {
-    const { searchQuery, page } = this.state;
+    const { searchQuery, page, images } = this.state;
     this.setState({ isLoading: true, isActiveBtn: false });
 
     try {
-      const { hits, total, totalHits } = await fetchImages(searchQuery, page);
+      const { hits, totalHits } = await fetchImages(searchQuery, page);
 
       this.setState(({ page, images }) => ({
         images: [...images, ...hits],
@@ -39,7 +39,7 @@ export class App extends Component {
         isActiveBtn: true,
       }));
 
-      if (total === totalHits) this.setState({ isActiveBtn: false });
+      if (images.length === totalHits) this.setState({ isActiveBtn: false });
     } catch (error) {
       this.setState({
         error: 'sorry, the server is not responding, try again later',
